@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import requests
+#import requests
 from django.views.generic import View
 import json
 from django.views.decorators.csrf import csrf_exempt
