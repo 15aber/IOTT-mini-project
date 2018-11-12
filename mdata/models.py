@@ -2,6 +2,11 @@ from django.db import models
 from datetime import datetime
 
 # Create your models here.
+class Greeting(models.Model):
+    when = models.DateTimeField("date created", auto_now_add=True)
+
+
+# Create your models here.
 class Mdata(models.Model):
     published_at = models.DateTimeField(default=datetime.now, blank=True)
     device_id = models.CharField(max_length=100)

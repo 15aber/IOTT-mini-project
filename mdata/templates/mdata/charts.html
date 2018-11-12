@@ -1,5 +1,5 @@
-{% extends 'mdata/layout.html' %}
-
+{% extends 'mdata/base.html' %}
+ 
 <script>
 {% block jquery %}
 var endpoint = '/api/chart/data/'
@@ -9,16 +9,19 @@ $.ajax({
     method: "GET",
     url: endpoint,
     success: function(data){
-        labels = data.labels
-        defaultData = data.default
+        labels = data.time
+        defaultData = data.battery
         var ctx = document.getElementById("batteryChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
+                    fill: false,
                     label: 'Battery Status',
                     lineTension: 0,
+                    borderColor: "rgba(255,0,0,0.5)",
+                    backgroundColor: "rgba(255,0,0,0.5)",
                     data: defaultData,
                 }]
             },
@@ -37,6 +40,8 @@ $.ajax({
                         }
                     }],
                     xAxes: [{
+                        type: 'time',
+                        distribution: 'linear',
                         scaleLabel: {
                             display: true,
                             labelString: 'Time',
@@ -49,17 +54,20 @@ $.ajax({
             }
 
         })
-
-        labels = data.labels
-        defaultData = data.default
+        console.log(data.default)
+        labels = data.time
+        defaultData = data.temp
         var ctx = document.getElementById("tempChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
+                    fill: false,
                     label: 'Temperature',
                     lineTension: 0,
+                    borderColor: "rgba(0,0,255,0.5)",
+                    backgroundColor: "rgba(0,0,255,0.5)",
                     data: defaultData,
                 }]
             },
