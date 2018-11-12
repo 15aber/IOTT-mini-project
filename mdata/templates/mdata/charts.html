@@ -1,5 +1,5 @@
 {% extends 'mdata/base.html' %}
- 
+
 <script>
 {% block jquery %}
 var endpoint = '/api/chart/data/'
@@ -117,6 +117,8 @@ $.ajax({
 <div class='row'>
     <div class='col-sm-12'>
         <h1>Hello World</h1>
+        {% load static %}
+        <img src="{% static '/mdata/images/LogoMakr_2bQPHU.png' %}" alt="My image" height="80">
         <canvas id="batteryChart" width="200" height="200"></canvas>
         
         <canvas id="tempChart" width="200" height="200"></canvas>
