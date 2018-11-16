@@ -1,129 +1,30 @@
 {% extends 'mdata/base.html' %}
 
-<script>
-{% block jquery %}
-var endpoint = '/api/chart/data/'
-var defaultData = []
-var labels = []
-$.ajax({
-    method: "GET",
-    url: endpoint,
-    success: function(data){
-        labels = data.time
-        defaultData = data.battery
-        var ctx = document.getElementById("batteryChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    fill: false,
-                    label: 'Battery Status',
-                    lineTension: 0,
-                    borderColor: "rgba(255,0,0,0.5)",
-                    backgroundColor: "rgba(255,0,0,0.5)",
-                    data: defaultData,
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Procentage (%)',
-                            fontSize: 20,
-                            fontColor: '#666'
-                        },
-                        ticks: {
-                            min: 0,
-                            max: 100
-                        }
-                    }],
-                    xAxes: [{
-                        type: 'time',
-                        distribution: 'linear',
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Time',
-                            fontSize: 20,
-                            fontColor: '#666'
-                        },
-                    }]
-
-                }
-            }
-
-        })
-        console.log(data.default)
-        labels = data.time
-        defaultData = data.temp
-        var ctx = document.getElementById("tempChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    fill: false,
-                    label: 'Temperature',
-                    lineTension: 0,
-                    borderColor: "rgba(0,0,255,0.5)",
-                    backgroundColor: "rgba(0,0,255,0.5)",
-                    data: defaultData,
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Temperature',
-                            fontSize: 20,
-                            fontColor: '#666'
-                        },
-                        ticks: {
-                            min: -20,
-                            max: 50
-                        }
-                    }],
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Time',
-                            fontSize: 20,
-                            fontColor: '#666'
-                        },
-                    }]
-
-                }
-            }
-
-        })
-
-
-    },
-    error: function(error_data){
-        console.log("error")
-        console.log(error_data)
-    }
-})
+{% block title %}
+<h1 class="text-center" style="margin:50px;">Hello World</h1>
+{% endblock title %}
 
 
 
-{% endblock %}
-</script>
+{% block basecontent %}
 
-{% block content %}
+<div class='container-fluid'>
+        <div class="row justify-content-left">
+            <div class="col-lg-2 col-md-3">
+                {% load static %}
+                <img src="{% static '/mdata/images/LogoMakr_2bQPHU.png' %}" alt="My image" height="100">
+                <ul class="nav nav-pills nav-stacked" id="mainNav">
+                    <li><a href="/charts/temp/">Temperature</a></li>
+                    <li><a href="/charts/pres/">Pressure</a></li>
+                    <li><a href="/charts/battery">Battery Life</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-1 col-md-1"></div>
+            <div class="col-lg-8 col-md-7">
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="col-lg-1 col-md-1"></div>
+        </div>
 
-<div class='row'>
-    <div class='col-sm-12'>
-        <h1>Hello World</h1>
-        {% load static %}
-        <img src="{% static '/mdata/images/LogoMakr_2bQPHU.png' %}" alt="My image" height="80">
-        <canvas id="batteryChart" width="200" height="200"></canvas>
-        
-        <canvas id="tempChart" width="200" height="200"></canvas>
-
-    </div>
-</div>
-
-{% endblock content %}
+{% endblock basecontent %}

@@ -1,0 +1,12 @@
+{% extends 'mdata/base.html' %}
+
+{% block title %}
+<h1 class="text-center" style="margin:50px;">About</h1>
+{% endblock title %}
+
+{% block basecontent %}
+{% load static %}
+<img style="display: block; margin-left: auto; margin-right: auto;" src="{% static '/mdata/images/LogoMakr_2bQPHU.png' %}" alt="My image" height="100">
+<p class="text-center">This site is created by</p>
+<h2 class="text-center">Simon Hansen og Tenna Rasmussen</h2>
+{% endblock basecontent %}

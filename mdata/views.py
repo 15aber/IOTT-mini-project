@@ -18,6 +18,28 @@ class HomeView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'mdata/charts.html', {})
 
+
+class TempView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mdata/temp.html', {})
+
+class BatteryView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mdata/battery.html', {})
+        
+class PresView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mdata/pres.html', {})
+
+class ContactView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mdata/contact.html', {})
+
+class AboutView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'mdata/about.html', {})
+
+
 # Create your views here.
 def index(request):
     r = requests.get('http://httpbin.org/status/418')
@@ -51,15 +73,18 @@ class ChartData(APIView):
             battery = []
             temp = []
             time = []
+            pres = []
             for i in Mdata.objects.all():
                 battery.append(i.battery)
                 temp.append(i.temp)
                 time.append(i.published_at)
+                pres.append(i.pressure)
             
             data = { 
                 "time": time, 
                 "battery": battery,
-                "temp": temp
+                "temp": temp,
+                "pres": pres
             }
             return Response(data)
 
