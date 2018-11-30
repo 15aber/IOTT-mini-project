@@ -1,0 +1,78 @@
+{% extends 'charts.html' %}
+
+<script>
+{% block jquery %}
+var endpoint = '/api/chart/data/'
+var defaultData = []
+var labels = []
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        labels = data.time
+        defaultData = data.battery
+        var ctx = document.getElementById("batteryChart").getContext('2d');
+        ctx.canvas.width = 300;
+        ctx.canvas.height = 150;
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    fill: false,
+                    label: 'Battery Status',
+                    lineTension: 0,
+                    borderColor: "rgba(255,0,0,0.5)",
+                    backgroundColor: "rgba(255,0,0,0.5)",
+                    data: defaultData,
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Procentage (%)',
+                            fontSize: 20,
+                            fontColor: '#666'
+                        },
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time',
+                            fontSize: 20,
+                            fontColor: '#666'
+                        },
+                    }]
+
+                }
+            }
+
+        })
+        
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+
+
+{% endblock %}
+</script>
+
+{% block content %}
+
+    <div id="wrapper" style="position: relative; height:50vh">
+        <canvas id="batteryChart" width="100" height="100"></canvas>
+        
+
+    </div>
+
+{% endblock content %}

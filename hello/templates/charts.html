@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1 class="text-center" style="margin:50px;">Living Room</h1>
+{% endblock title %}
+
+
+
+{% block basecontent %}
+
+<div class='container-fluid'>
+        <div class="row justify-content-left">
+            <div class="col-lg-2 col-md-3">
+                {% load static %}
+                <a href="/">
+                    <img src="{% static '/images/LogoMakr_2bQPHU.png' %}" alt="My image" height="100">
+                </a>
+                
+                <ul class="nav nav-pills nav-stacked" id="mainNav">
+                    <li><a href="/charts/temp/">Temperature</a></li>
+                    <li><a href="/charts/pres/">Pressure</a></li>
+                    <li><a href="/charts/battery">Battery Life</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="col-lg-2 col-md-2"></div>
+        </div>
+
+{% endblock basecontent %}
